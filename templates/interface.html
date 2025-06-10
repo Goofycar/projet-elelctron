@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Interface C2</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script>
+      function rafraichirResultat() {
+        fetch("/get_resultat")
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById("resultat").innerText =
+              data || "Aucun résultat pour le moment.";
+          });
+      }
+      setInterval(rafraichirResultat, 2000);
+      window.onload = rafraichirResultat;
+    </script>
+  </head>
+  <body>
+    <div class="haut">
+      <h1>Envoyer une commande</h1>
+      <form method="POST">
+        <input type="text" name="commande" placeholder="Commande..." required />
+        <button type="submit">Envoyer</button>
+      </form>
+      <h2>Résultat :</h2>
+      <pre id="resultat"><i>Chargement du résultat...</i></pre>
+    </div>
+  </body>
+</html>
